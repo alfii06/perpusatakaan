@@ -11,3 +11,42 @@
 .gambar-detail img{
     width: 70%;
 }
+.kartu-ulasan{
+    padding: 1rem 1.5rem;
+    width: 400px;
+    height: 260px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-right: 1rem;
+    
+}
+.bungkus-kartu-ulasan {
+    display: flex;
+    max-width: 800px;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+.bungkus-kartu-ulasan::-webkit-scrollbar {
+    width: 5px; /* lebar scrollbar */
+    height: 1px;
+}
+
+.bungkus-kartu-ulasan::-webkit-scrollbar-track {
+    background: transparent; /* warna latar belakang scrollbar */
+}
+
+.bungkus-kartu-ulasan::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 0, 0.3); /* warna scroll thumb */
+    border-radius: 5px; /* border radius scroll thumb */
+}
+.pinjam button{
+    background-color: #424787;
+    padding: 0.5rem 2rem;
+    border-radius: 30px;
+    border: none;
+    color: white;
+    font-weight: 600;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
