@@ -195,7 +195,7 @@ if(!isset($_SESSION['id'])) {
                     </p>
                     <div class="lihat text-center pb-3">
                       <a
-                        href=""
+                        href="detail-buku.php?id=<?php echo $data['BukuID'] ?>"
                         style="
                           text-decoration: none;
                           color: white;

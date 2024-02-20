@@ -266,4 +266,76 @@ class Database
             return 'gagal';
         }
     }
+
+    public function detailBook($id) {
+        $sql = "SELECT * FROM buku b, kategoribuku kb, kategoribuku_relasi kbr where b.BukuID = kbr.BukuID and kbr.KategoriID = kb.KategoriID and b.BukuID = '$id'";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        } else {
+            return 'gagal';
+        }
+    }
+
+    public function ulasanBook($id) {
+        $sql = "SELECT * FROM ulasanbuku ub, user u where ub.UserID = u.userID and BukuID = '$id'";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0) {
+            $users = array();
+            while ($row = $result->fetch_assoc()) {
+                $users[] = $row;
+            }
+            return $users;
+        } else {
+            return [];
+        }
+    }
+
+    public function checkBook($idUser,$idBuku) {
+        $sql = "SELECT * from peminjaman where UserID = '$idUser' and BukuID = '$idBuku' and StatusPeminjaman = 'Dipinjam'";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0) {
+            return 'true';
+        } else {
+            return 'false';
+        }
+    }
+    public function checkCollection($idUser,$idBuku) {
+        $sql = "SELECT * from koleksipribadi where UserID = '$idUser' and BukuID = '$idBuku'";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0) {
+            return 'true';
+        } else {
+            return 'false';
+        }
+    }
+
+    public function addBorrow($data) {
+        $idUser = $data['idUser'];
+        $idBuku = $data['idBuku'];
+        $tanggalPeminjaman = $data['tanggalPeminjaman'];
+        $tanggalPengembalian = $data['tanggalPengembalian'];
+        $status = "Dipinjam";
+        $sql = "INSERT INTO peminjaman (UserID, BukuID, TanggalPeminjaman, TanggalPengembalian, StatusPeminjaman) values ('$idUser','$idBuku','$tanggalPeminjaman', '$tanggalPengembalian', '$status')";
+        $result = $this->conn->query($sql);
+        if($result) {
+            return 'berhasil';
+        } else {
+            return 'gagal';
+
+        }
+    }
+
+    public function addCollection($data) {
+        $idUser = $data['idUser'];
+        $idBuku = $data['idBuku'];
+        $sql = "INSERT INTO koleksipribadi (UserID, BukuID) values ('$idUser','$idBuku')";
+        $result = $this->conn->query($sql);
+        if($result) {
+            return 'berhasil';
+        } else {
+            return 'gagal';
+
+        }
+    }
 }

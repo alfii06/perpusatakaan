@@ -138,7 +138,7 @@ unset($_SESSION['notifikasiBerhasil']);
                                     <td data-label="Tanggal Peminjaman"><?= $row['Penerbit'] ?></td>
                                     <td data-label="Tanggal Pengembalian"><?= $row['TahunTerbit'] ?></td>
                                     <td data-label="Tanggal Pengembalian"><?= $row['NamaKategori'] ?></td>
-                                    <td data-label="Aksi"><a class="me-1" href="list-buku-admin.php?hapus=<?= $row['BukuID'] ?>"><i class="fa-solid fa-trash" style="color:red;"></i></a> <a class="me-1" href="tambah-buku-edit.php?id=<?= $row['BukuID'] ?>"><i class="fa-solid fa-edit" style="color:green;"></i></a> <a class="me-1" href="list-buku-admin.php?hapus=<?= $row['BukuID'] ?>"><i class="fa-solid fa-eye" style="color:blue;"></i></a></td>
+                                    <td data-label="Aksi"><a class="me-1" href="list-buku-admin.php?hapus=<?= $row['BukuID'] ?>"><i class="fa-solid fa-trash" style="color:red;"></i></a> <a class="me-1" href="tambah-buku-edit.php?id=<?= $row['BukuID'] ?>"><i class="fa-solid fa-edit" style="color:green;"></i></a> <a class="me-1" href="detail-buku.php?id=<?= $row['BukuID'] ?>"><i class="fa-solid fa-eye" style="color:blue;"></i></a></td>
                                 </tr>
                                 <?php $i += 1; ?>
                             <?php endforeach; ?>
