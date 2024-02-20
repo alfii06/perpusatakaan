@@ -68,21 +68,23 @@ class Database
         $username = $data['username'];
         $password = $data['password'];
 
+        
+        $cekUsername = "SELECT * from user where username = '$username' and password = '$password'";
+        $result = $this->conn->query($cekUsername);
+        $data = $result->fetch_assoc();
+        
         if($username === 'petugas' && $password === '12345678') {
-            $_SESSION['id'] = $data['id'];
+            $_SESSION['id'] = $data['userID'];
             $_SESSION['petugas'] = 'true';
             return 'petugas';
         }
         if($username === 'admin' && $password === '12345678') {
-            $_SESSION['id'] = $data['id'];
+            $_SESSION['id'] = $data['userID'];
             $_SESSION['admin'] = 'true';
             return 'admin';
         }
-        $cekUsername = "SELECT * from user where username = '$username' and password = '$password'";
-        $result = $this->conn->query($cekUsername);
         if($result->num_rows > 0) {
-            $data = $result->fetch_assoc();
-            $_SESSION['id'] = $data['id'];
+            $_SESSION['id'] = $data['userID'];
             return 'berhasil'; 
         }
         return 'gagal'; 

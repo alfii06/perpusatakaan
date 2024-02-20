@@ -12,12 +12,19 @@ if(isset($_POST['masuk'])) {
     $_SESSION['notifikasiBerhasil'] = 'berhasil'; 
     header("Location: profil.php");
     exit;
+  }else if($users === 'admin') { 
+    header("Location: profil.php");
+    exit;
+  }else if($users === 'petugas') {
+    header("Location: profil.php");
+    exit;
   }else if($users === 'gagal') {
     $_SESSION['notifikasiBerhasil'] = 'gagal'; 
   }
 
   header("Location: login.php");
   exit;
+
 }
 $notifikasiBerhasil = isset($_SESSION['notifikasiBerhasil']) ? $_SESSION['notifikasiBerhasil'] : null;
 unset($_SESSION['notifikasiBerhasil']);

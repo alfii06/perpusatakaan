@@ -1,132 +1,184 @@
-*{
-    padding: 0;
-    margin: 0;
+* {
+  padding: 0;
+  margin: 0;
 }
-body{
-    overflow-x: hidden;
+body {
+  overflow-x: hidden;
 }
-.section-list{
-    width: 100%;
-    height: 100vh;
+.section-list {
+  width: 100%;
+  height: 100vh;
 }
-.bungkus-link a{
-    text-decoration: none;
-    color: white;
-    display: flex;
-    justify-content: space-evenly;
-    font-weight: 500;
+.bungkus-link a {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  justify-content: space-evenly;
+  font-weight: 500;
 }
-.bungkus-link{
-    margin-top: 2rem;
-    text-align: center;
-    display: flex;
-    padding: 0.5rem 0;
+.bungkus-link {
+  margin-top: 2rem;
+  text-align: center;
+  display: flex;
+  padding: 0.5rem 0;
 }
-.bungkus-link img{
-    margin-left: 2rem;
-    margin-right: 1rem;
-    width: 25px;
-}
-
-.bungkus-link-kanan{
-    display: flex;
-    margin-top: 2rem;
-    width: 100%;
-    
-}
-.bungkus-link-kanan a{
-    margin-right: 4rem;
-   text-decoration: none;
-   font-weight: 600;
-   color: black;
-   padding: 0.2rem 1rem;
-font-size: 13px;
-
-}
-a.aktif{
-    color: white;
-    background-color: #0098DA;
-    border-radius: 20px;
-}
-.kartu{
-    padding: 0.5rem;
-    background-color: white;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 10px;
-}
-.kanan-dasboard{
-    overflow-y: scroll;
-    height: 620px;
+.bungkus-link img {
+  margin-left: 2rem;
+  margin-right: 1rem;
+  width: 25px;
 }
 
-img.logo2{
-    display: none;
+.judul h3 {
+  background-color: #424787 !important;
+  padding: 10px 20px;
+  color: white;
 }
-.navbar{
-    display: none;
+
+.bungkus-link-kanan {
+  display: flex;
+  margin-top: 2rem;
+  width: 100%;
+}
+.bungkus-link-kanan a {
+  margin-right: 4rem;
+  text-decoration: none;
+  font-weight: 600;
+  color: black;
+  padding: 0.2rem 1rem;
+  font-size: 13px;
+}
+a.aktif {
+  color: white;
+  background-color: #0098da;
+  border-radius: 20px;
+}
+.kartu {
+  padding: 0.5rem;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 10px;
+}
+.kanan-dasboard {
+  overflow-y: scroll;
+  height: 620px;
+}
+
+img.logo2 {
+  display: none;
+}
+.navbar {
+  display: none;
 }
 /* Tablet */
 @media only screen and (max-width: 1024px) {
-a.link{
+  a.link {
     display: none;
-}
-.bungkus-link img{
+  }
+  .bungkus-link img {
     margin-left: 1rem;
     margin-right: 1rem;
-}
-.kanan-dasboard{
+  }
+  .kanan-dasboard {
     overflow-y: scroll;
     height: 1100px;
-}
-img.logo2{
+  }
+  img.logo2 {
     display: block;
     width: 40px;
     margin-left: 5px;
-}
-img.logo1{
+  }
+  img.logo1 {
     display: none;
-}
-.responsif-hp{
+  }
+  .responsif-hp {
     display: none;
-      }
-      .navbar{
-        display: block;
-    }
-    .bungkus-link-kanan{
-        display: flex;
-        margin-top: 2rem;
-        width: 778px;
-        overflow-y: scroll;
-        
-    }
+  }
+  .navbar {
+    display: block;
+  }
+  .bungkus-link-kanan {
+    display: flex;
+    margin-top: 2rem;
+    width: 778px;
+    overflow-y: scroll;
+  }
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 8px;
+  text-align: center;
+  border-bottom: 1px solid #ddd;
+}
+th {
+  background-color: #f2f2f2;
+}
 
+.cari input {
+  border: none;
+  width: 300px !important;
 }
+
+.cari {
+  width: 300px;
+  border-bottom: 1px solid black;
+}
+
 /* Ponsel */
 @media only screen and (max-width: 768px) {
-    /* Masukkan gaya CSS khusus untuk ponsel di sini */
-    .responsif-hp{
-  display: none;
-    }
-    .navbar{
-        display: block;
-    }
-    .bungkus-link-kanan{
-        display: flex;
-        margin-top: 2rem;
-        width: 378px;
-        overflow-y: scroll;
-        
-    }
-    .bungkus-link-kanan a{
-        margin-right: 2rem;
-       
-    
-    }
-    a.aktif{
-        color: white;
-        background-color: #0098DA;
-        border-radius: 20px;
-    }
-    
+  /* Masukkan gaya CSS khusus untuk ponsel di sini */
+  .responsif-hp {
+    display: none;
+  }
+  .navbar {
+    display: block;
+  }
+  .bungkus-link-kanan {
+    display: flex;
+    margin-top: 2rem;
+    width: 378px;
+    overflow-y: scroll;
+  }
+  .bungkus-link-kanan a {
+    margin-right: 2rem;
+  }
+  a.aktif {
+    color: white;
+    background-color: #0098da;
+    border-radius: 20px;
+  }
 }
 
+@media screen and (max-width: 600px) {
+  table {
+    border: 0;
+  }
+  table caption {
+    font-size: 1.3em;
+  }
+  table thead {
+    display: none;
+  }
+  table tr {
+    border-bottom: 3px solid #ddd;
+    display: block;
+    margin-bottom: 0.625em;
+  }
+  table td {
+    display: block;
+    text-align: right;
+    border-bottom: 1px dotted #ddd;
+  }
+  table td::before {
+    content: attr(data-label);
+    float: left;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+  table td:last-child {
+    border-bottom: 0;
+  }
+}

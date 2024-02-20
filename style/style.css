@@ -1,86 +1,84 @@
-*{
-    padding: 0;
-    margin: 0;
+* {
+  padding: 0;
+  margin: 0;
 }
-body{
-    overflow-x: hidden;
+body {
+  overflow-x: hidden;
 }
 
-.section-login{
-    width: 100%;
-    height: 100vh;
+.section-login {
+  width: 100%;
+  height: 100vh;
 }
-.logo img{
-    width: 40%;
+.logo img {
+  width: 40%;
 }
-.logo{
-    text-align: center;
-    margin-top: 1rem;
+.logo {
+  text-align: center;
+  margin-top: 1rem;
 }
-img.gambar-kiri{
-    width: 350px;
-    margin-top: 1.8rem;
+img.gambar-kiri {
+  width: 350px;
+  margin-top: 1.8rem;
 }
-.bungkus-input input{
-    background-color: transparent;
-    border: none;
-    outline: none;
-width: 100%;
-color: white;
+.bungkus-input input {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  width: 100%;
+  color: white;
 }
-.bungkus-input{
-    padding: 0.8rem 1rem;
-    background-color: #424787;
-    border-radius: 50px;
-    color: white;
-    width: 60%;
-    margin: auto;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+.bungkus-input {
+  padding: 0.8rem 1rem;
+  background-color: #424787;
+  border-radius: 50px;
+  color: white;
+  width: 60%;
+  margin: auto;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 .bungkus-input input::placeholder {
-    color: white; /* Atur warna teks placeholder menjadi putih */
+  color: white; /* Atur warna teks placeholder menjadi putih */
 }
-.tombol button{
-    background-color: #424787;
-    color: white;
-    padding: 0.5rem 2rem;
-    border: none;
-    border-radius: 50px;
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-    font-weight: 600;
+.tombol button {
+  background-color: #424787;
+  color: white;
+  padding: 0.5rem 2rem;
+  border: none;
+  border-radius: 50px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  font-weight: 600;
 }
-p.daftar{
-    margin-left: 9rem;
+p.daftar {
+  margin-left: 9rem;
 }
 /* Tablet */
 @media only screen and (max-width: 1024px) {
-    p.daftar{
-        margin-left: 12rem;
-    }
-    
-    h1.welcome{
-        font-size: 3rem;
-    }
+  p.daftar {
+    margin-left: 12rem;
+  }
+
+  h1.welcome {
+    font-size: 3rem;
+  }
 }
 
 /* Ponsel */
 @media only screen and (max-width: 768px) {
-    /* Masukkan gaya CSS khusus untuk ponsel di sini */
-    .bungkus-input{
-        padding: 0.8rem 1rem;
-        background-color: #424787;
-        border-radius: 50px;
-        color: white;
-        width: 80%;
-        margin: auto;
-        box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-        
-    }
-    p.daftar{
-        margin-left: 4rem;
-    }
-    h1.welcome{
-        font-size: 1.5rem;
-    }
-    
+  /* Masukkan gaya CSS khusus untuk ponsel di sini */
+  .bungkus-input {
+    padding: 0.8rem 1rem;
+    background-color: #424787;
+    border-radius: 50px;
+    color: white;
+    width: 80%;
+    margin: auto;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  }
+  p.daftar {
+    margin-left: 4rem;
+  }
+  h1.welcome {
+    font-size: 1.5rem;
+  }
 }
