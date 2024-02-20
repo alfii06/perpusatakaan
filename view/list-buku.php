@@ -1,3 +1,31 @@
+<?php 
+session_start();
+
+require_once '../php/buku.php';
+
+$database = new Database();
+
+if(!isset($_SESSION['id'])) {
+    header("Location: login.php");
+    exit;
+} else {
+  $listKategori = $database->listCategories();
+  $listBukuPeminjaman = $database->listBookUser();
+  
+  if(isset($_GET['kategori'])) {
+    $cariKategori = $database->searchCategories(intval($_GET['kategori']));
+    $listBukuPeminjaman = $cariKategori;
+  }
+
+  if (isset($_POST['cari-buku'])) {
+    $isi = $_POST['isi-pencarian'];
+    if($isi != '') {
+        $listBukuPeminjaman = $database->searchBook($isi);
+    }
+  }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -19,10 +47,21 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../style/list.css" />
-    <link rel="stylesheet" href="../style/profil.css">
-    <link rel="stylesheet" href="../style/tambah_gambar.css">
     <title>List buku</title>
   </head>
+
+  <style>
+    .cari input {
+  border: none;
+  width: 300px !important;
+}
+
+.cari {
+  width: 300px;
+  border-bottom: 1px solid black;
+}
+
+  </style>
   <body>
     <div class="section-list">
       <div class="row">
@@ -61,7 +100,7 @@
             <a href="" class="link">Koleksi pribadi</a>
           </div>
         </div>
-        <div class="col-lg-10 col-md-11 ">
+        <div class="col-lg-10 col-md-11 kanan-dasboard">
           <nav
             class="navbar navbar-expand-lg navbar-light pt-4"
             style="background-color: #424787"
@@ -125,65 +164,52 @@
             </div>
           </nav>
           <!-- end nav -->
-         <div class="section-kanan-profil">
-<div class="bg-kanan-profil">
-    
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 offset-lg-2">
-            <div class="kartu-kanan-profil">
-              <div class="judul-profil text-center">
-
-                <p style="color: white;background-color: #424787;font-weight: 600;border-radius: 30px;padding: 0.5rem 1rem;">Tambah Buku</p>
+          <div class="container">
+            <div class="bungkus-link-kanan">
+              <?php foreach ($listKategori as $data) : ?>
+                <a href="list-buku.php?kategori=<?php echo $data['KategoriID'] ?>"><?php echo $data['NamaKategori']?></a>
+                <?php endforeach ?>
+                <a href="list-buku.php">Semua</a>
+            </div>
+            <div class="container">
+              <div class="d-flex flex-row-reverse">
+                <form action="" method="post">
+                  <div class="p-2 me-5 cari d-flex">
+                    <i class="fa-solid fa-magnifying-glass" style="margin-top:7px; margin-right:20px;color: #999999;"></i>  
+                    <input autocomplete="off" name="isi-pencarian" type="text" placeholder="Cari Buku">
+                    <button name="cari-buku" type="submit" style="border:none; background-color: #006FD6; padding: 5px 25px; color: white; border-radius: 25px;">Cari</button>
+                  </div>
+                </form>
               </div>
-         <div class="row mt-5">
-            <div class="col-lg-5">
-<div class="kartu-upload">
-    <img style="margin: auto;display: flex;" src="../assets/icon-up.png" alt="">
-    <input type="file">
-</div>
             </div>
-            <div class="col-lg-7">
-<div class="bungkus-input">
-    <p style="font-weight: 700;font-size: 1.2rem;">Judul Buku</p>
-    <div class="kanan-input" style="padding: 0.5rem 1rem;background-color: white;border-radius: 30px;">
-        <input type="text">
-    </div>
-    
-</div>
-<div class="bungkus-input mt-4">
-    <p style="font-weight: 700;font-size: 1.2rem;">Deskripsi Buku</p>
-   <textarea name="" id=""  rows="5" style="width: 100%;"></textarea>
-    
-</div>
-<div class="bungkus-input mt-4">
-    <p style="font-weight: 700;font-size: 1.2rem;">Kategori Buku</p>
-    <div class="bungkus-pilih d-flex" style="gap: 1rem;">
-
-        <div class="pilih">
-            <p class="mt-3">Pendidikan</p>
-            <input type="checkbox">
-        </div>
-        <div class="pilih">
-            <p class="mt-3">Manga</p>
-            <input type="checkbox">
-        </div>
-        <div class="pilih">
-            <p class="mt-3">Novel</p>
-            <input type="checkbox">
-        </div>
-    </div>
-  
-    
-</div>
+            <div class="row">
+              <?php foreach ($listBukuPeminjaman as $data) : ?>
+                <div class="col-lg-3 col-md-6 mt-5">
+                  <div class="kartu">
+                    <img class="d-flex m-auto" src="../assets/buku.png" alt="" />
+                    <h5 class="text-center mt-3" style="font-weight: 700">
+                      <?php echo $data['Judul']?>
+                    </h5>
+                    <p class="text-center" style="font-size: 13px">
+                    <?php echo $data['Penulis']?> | <?php echo $data['TahunTerbit']?>
+                    </p>
+                    <div class="lihat text-center pb-3">
+                      <a
+                        href=""
+                        style="
+                          text-decoration: none;
+                          color: white;
+                          padding: 0.3rem 1.5rem;
+                          background-color: #0098da;
+                          border-radius: 30px;
+                        "
+                        >Lihat Buku</a
+                      >
+                    </div>
+                  </div>
+                </div>
+              <?php endforeach ?>
             </div>
-         </div>
-            </div>
-        </div>
-    </div>
-</div>
-         </div>
           </div>
         </div>
       </div>
