@@ -2,3 +2,12 @@
     margin: 0;
     padding: 0;
 }
+.kembali a{
+    text-decoration: none;
+    color: black;
+    font-weight: 600;
+    font-size: 1.4rem;
+}
+.gambar-detail img{
+    width: 70%;
+}
