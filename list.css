@@ -1,0 +1,76 @@
+*{
+    padding: 0;
+    margin: 0;
+}
+body{
+    overflow-x: hidden;
+}
+.section-list{
+    width: 100%;
+    height: 100vh;
+}
+.bungkus-link a{
+    text-decoration: none;
+    color: #A0A0A0;
+    display: flex;
+    justify-content: space-evenly;
+    font-weight: 600;
+}
+.bungkus-link{
+    margin-top: 2rem;
+    text-align: center;
+    display: flex;
+    padding: 0.5rem 0;
+}
+.bungkus-link img{
+    margin-left: 2rem;
+    margin-right: 1rem;
+}
+.aktif{
+    background-color: #0098DA;
+    padding: 0.5rem 0;
+}
+.aktif a{
+    color: white;
+}
+.bungkus-link-kanan{
+    display: flex;
+    margin-top: 2rem;
+    
+}
+.bungkus-link-kanan a{
+    margin-right: 4rem;
+   text-decoration: none;
+   font-weight: 600;
+   color: black;
+   padding: 0.2rem 1rem;
+}
+a.aktif{
+    color: white;
+    background-color: #0098DA;
+    border-radius: 20px;
+}
+.kartu{
+    padding: 0.5rem;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    border-radius: 10px;
+}
+.kanan-dasboard{
+    overflow-y: scroll;
+    height: 620px;
+}
+/* Tablet */
+@media only screen and (max-width: 1024px) {
+a.link{
+    display: none;
+}
+.bungkus-link img{
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+.kanan-dasboard{
+    overflow-y: scroll;
+    height: 1100px;
+}
+}
