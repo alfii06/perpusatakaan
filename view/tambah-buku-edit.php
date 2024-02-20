@@ -9,17 +9,36 @@ if(!isset($_SESSION['id'])) {
     header("Location: login.php");
     exit;
 } else {
-
-  if(isset($_POST['tambah'])) {
-    $tambahBuku = $database->addBook($_POST);
-    if($tambahBuku === 'berhasil') {
-      $_SESSION['notifikasiBerhasil'] = 'berhasil'; 
-    } else if($tambahBuku === 'gagal') {
-      $_SESSION['notifikasiBerhasil'] = 'tipe'; 
+  if(isset($_GET['id'])) {
+    $ambilBuku = $database->getBook(intval($_GET['id']));
+    if($ambilBuku === 'gagal') {
+      header("Location: list-buku-admin.php");
+      exit;
     }
+
+    if(isset($_POST['edit'])) {
+      if(isset($_FILES['gambar']['name']) && !empty($_FILES['gambar']['name'])) {
+        // Gambar telah diunggah oleh pengguna
+        $gambar = 'ada';
+      } else {
+          // Gambar tidak diunggah oleh pengguna
+          $gambar = 'tidak ada';
+      }
+      $editBuku = $database->editBook($_POST,$gambar);
+      if($editBuku === 'berhasil') {
+        $_SESSION['notifikasiBerhasil'] = 'berhasil'; 
+      } else if($editBuku === 'tipe') {
+        $_SESSION['notifikasiBerhasil'] = 'tipe'; 
+      }
+      
+      header("Location: tambah-buku-edit.php?id=" . $_GET['id']);
+      exit;
+    }
+  
+  } else {
     
-  header("Location: tambah-buku.php");
-  exit;
+    header("Location: list-buku-admin.php");
+    exit;
   }
 
 }
@@ -185,7 +204,7 @@ unset($_SESSION['notifikasiBerhasil']);
                         </div>
                       <?php elseif(isset($notifikasiBerhasil) && $notifikasiBerhasil === 'berhasil'): ?>
                           <div class="alert alert-success" role="alert">
-                              Berhasil Menambahkan Buku
+                              Berhasil Mengedit Buku
                           </div>
                       <?php endif; ?>    
                       <div class="row mt-5">
@@ -196,7 +215,8 @@ unset($_SESSION['notifikasiBerhasil']);
                               src="../assets/icon-up.png"
                               alt=""
                             />
-                            <input type="file" required name="gambar"/>
+                            <input type="file" name="gambar"/>
+                            <p class="text-center"><b>(Opsional)</b></p>
                           </div>
                         </div>
                         <div class="col-lg-7">
@@ -212,7 +232,8 @@ unset($_SESSION['notifikasiBerhasil']);
                                 border-radius: 30px;
                               "
                             >
-                              <input type="text" required name="judul" />
+                              <input type="hidden" name="idBuku" value="<?php echo $ambilBuku['BukuID'] ?>">
+                              <input type="text" required name="judul" value="<?php echo $ambilBuku['Judul'] ?>" />
                             </div>
                           </div>
                           <div class="bungkus-input">
@@ -230,7 +251,7 @@ unset($_SESSION['notifikasiBerhasil']);
                                 border-radius: 30px;
                               "
                             >
-                              <input type="text" required name="penulis"/>
+                              <input type="text" required name="penulis" value="<?php echo $ambilBuku['Penulis'] ?>"/>
                             </div>
                           </div>
                           <div class="bungkus-input">
@@ -248,7 +269,7 @@ unset($_SESSION['notifikasiBerhasil']);
                                 border-radius: 30px;
                               "
                             >
-                              <input type="text" required name="penerbit"/>
+                              <input type="text" required name="penerbit" value="<?php echo $ambilBuku['Penerbit'] ?>"/>
                             </div>
                           </div>
                           <div class="bungkus-input">
@@ -266,7 +287,7 @@ unset($_SESSION['notifikasiBerhasil']);
                                 border-radius: 30px;
                               "
                             >
-                              <input type="number" required name="tahun"/>
+                              <input type="number" required name="tahun" value="<?php echo $ambilBuku['TahunTerbit'] ?>"/>
                             </div>
                           </div>
                           <div class="bungkus-input mt-4">
@@ -275,15 +296,27 @@ unset($_SESSION['notifikasiBerhasil']);
                             </p>
                             <div class="bungkus-pilih d-flex" style="gap: 1rem">
                               <div class="pilih">
-                              <input type="radio" id="jenis1" name="kategori" value="1">
+                              <input type="radio" id="jenis1" name="kategori"
+                              <?php if($ambilBuku['KategoriID'] === "1") : ?>
+                              checked
+                              <?php endif; ?>
+                               value="1">
                               <label for="jenis1">Manga</label><br>
-                              <input type="radio" id="jenis2" name="kategori" value="2">
+                              <input type="radio" id="jenis2" name="kategori" 
+                              <?php if($ambilBuku['KategoriID'] === "2") : ?>
+                              checked
+                              <?php endif; ?>
+                              value="2">
                               <label for="jenis2">Novel</label><br>
-                              <input type="radio" id="jenis3" name="kategori" value="3">
+                              <input type="radio" id="jenis3" name="kategori" 
+                              <?php if($ambilBuku['KategoriID'] === "3") : ?>
+                              checked
+                              <?php endif; ?>
+                              value="3">
                               <label for="jenis3">Pendidikan</label><br>
                               </div>
                             </div>
-                            <button type="submit" name="tambah" class="mt-3" style="border:none; padding: 7px; 20px; background-color:#424787; color:white; border-radius:10px;">Tambah Buku</button>
+                            <button type="submit" name="edit" class="mt-3" style="border:none; padding: 7px; 20px; background-color:#424787; color:white; border-radius:10px;">Tambah Buku</button>
                           </div>
                         </div>
                       </div>

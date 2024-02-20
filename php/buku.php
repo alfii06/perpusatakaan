@@ -114,6 +114,8 @@ class Database
         $cekData = "SELECT * FROM buku where BukuID = '$id'"; 
         $result = $this->conn->query($cekData);
         if ($result->num_rows > 0) {
+            $data = $result->fetch_assoc();
+            unlink($data['gambar']);
             $sql = "DELETE FROM peminjaman where BukuID = '$id'"; 
             $result = $this->conn->query($sql);
             $sql = "DELETE FROM kategoribuku_relasi where BukuID = '$id'"; 
@@ -156,6 +158,112 @@ class Database
             return $users;
         } else {
             return [];
+        }
+    }
+
+    public function addBook($data) {
+        $judul = $data['judul'];
+        $penulis = $data['penulis'];
+        $penerbit = $data['penerbit'];
+        $tahun = $data['tahun'];
+        $kategori = intval($data['kategori']);
+        $file_name = $_FILES['gambar']['name'];
+        $file_tmp = $_FILES['gambar']['tmp_name'];
+        $file_type = $_FILES['gambar']['type'];
+    
+        // Mendapatkan ekstensi file
+        $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+    
+        // Array ekstensi yang diizinkan
+        $allowed_extensions = array('jpg', 'jpeg', 'png');
+    
+        // Cek apakah ekstensi file diizinkan
+        if(in_array($file_extension, $allowed_extensions)) {
+            // Mendapatkan timestamp saat ini
+            $timestamp = date('YmdHis');
+    
+            // Menggabungkan timestamp dengan nama file asli
+            $new_file_name = $timestamp . '_' . $file_name;
+    
+            $file_destination = '../upload_foto/' . $new_file_name; // Ganti 'folder_tujuan/' dengan path folder tujuan Anda
+    
+            // Pindahkan file yang diunggah ke folder tujuan
+            if(move_uploaded_file($file_tmp, $file_destination)) {
+                $sql = "INSERT into buku (judul,penulis,penerbit,TahunTerbit,gambar) values ('$judul','$penulis','$penerbit','$tahun','$file_destination')";
+                $result = $this->conn->query($sql);
+                $sql = "SELECT BukuID from buku where gambar = '$file_destination'";
+                $result = $this->conn->query($sql);
+                $data = $result->fetch_assoc();
+                $bukuID = $data['BukuID'];
+                $sql = "INSERT into kategoribuku_relasi (BukuID,KategoriID) values ('$bukuID','$kategori')";
+                $result = $this->conn->query($sql);
+                return 'berhasil';
+            } 
+        } else {
+            return 'tipe';
+        }
+    }
+
+    public function editBook($data, $gambar) {
+        $idBuku = $data['idBuku'];
+        $judul = $data['judul'];
+        $penulis = $data['penulis'];
+        $penerbit = $data['penerbit'];
+        $tahun = $data['tahun'];
+        $kategori = intval($data['kategori']);
+
+        if($gambar === 'ada') {
+            $sql = "SELECT gambar from buku where BukuID = '$idBuku'";
+            $result = $this->conn->query($sql);
+            $data = $result->fetch_assoc();
+            $bukuGambar = $data['gambar'];
+            unlink($bukuGambar);
+
+            
+        $file_name = $_FILES['gambar']['name'];
+        $file_tmp = $_FILES['gambar']['tmp_name'];
+        $file_type = $_FILES['gambar']['type'];
+    
+        // Mendapatkan ekstensi file
+        $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+    
+        // Array ekstensi yang diizinkan
+        $allowed_extensions = array('jpg', 'jpeg', 'png');
+    
+        // Cek apakah ekstensi file diizinkan
+        if(in_array($file_extension, $allowed_extensions)) {
+            // Mendapatkan timestamp saat ini
+            $timestamp = date('YmdHis');
+    
+            // Menggabungkan timestamp dengan nama file asli
+            $new_file_name = $timestamp . '_' . $file_name;
+    
+            $file_destination = '../upload_foto/' . $new_file_name; // Ganti 'folder_tujuan/' dengan path folder tujuan Anda
+    
+            // Pindahkan file yang diunggah ke folder tujuan
+            if(move_uploaded_file($file_tmp, $file_destination)) {
+                $sql = "UPDATE buku set judul = '$judul', penulis = '$penulis', penerbit = '$penerbit', TahunTerbit = '$tahun', gambar = '$file_destination' where BukuID = '$idBuku'";
+                $result = $this->conn->query($sql);
+                return 'berhasil';
+            } 
+        } else {
+            return 'tipe';
+        }
+    } else {
+            $sql = "UPDATE buku set judul = '$judul', penulis = '$penulis', penerbit = '$penerbit', TahunTerbit = '$tahun' where BukuID = '$idBuku'";
+            $result = $this->conn->query($sql);
+            return 'berhasil';
+    }
+}
+
+    public function getBook($id) {
+        $sql = "SELECT * FROM buku b, kategoribuku kb, kategoribuku_relasi kbr where b.BukuID = kbr.BukuID and kbr.KategoriID = kb.KategoriID and b.BukuID = '$id'";
+        $result = $this->conn->query($sql);
+
+        if ($result->num_rows > 0) {
+            return $result->fetch_assoc();
+        } else {
+            return 'gagal';
         }
     }
 }

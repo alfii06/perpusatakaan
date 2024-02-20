@@ -110,7 +110,7 @@ unset($_SESSION['notifikasiBerhasil']);
                         </div>
                     <?php elseif(isset($notifikasiBerhasil) && $notifikasiBerhasil === 'berhasil'): ?>
                         <div class="alert alert-success" role="alert">
-                            Gagal menghapus data peminjaman buku
+                            Berhasil menghapus data peminjaman buku
                         </div>
                     <?php endif; ?>    
                     <table id="table-to-print">

@@ -101,14 +101,19 @@ unset($_SESSION['notifikasiBerhasil']);
                 <!-- end nav -->
                 <div class="container">
                     <div class="judul text-center mt-5 mb-5"><h3>Daftar Buku</h3></div>
+                    
+                    <div class="mb-3">
 
+                        <a href="tambah-buku.php" class="mt-3" style="border:none; padding: 7px; 20px; background-color:#424787; color:white; border-radius:5px; text-decoration:none;">Tambah Buku</a>
+                    </div>
+                        
                     <?php if(isset($notifikasiBerhasil) && $notifikasiBerhasil === 'gagal') : ?>
                         <div class="alert alert-danger" role="alert">
                             Gagal menghapus data peminjaman buku
                         </div>
                     <?php elseif(isset($notifikasiBerhasil) && $notifikasiBerhasil === 'berhasil'): ?>
                         <div class="alert alert-success" role="alert">
-                            Gagal menghapus data peminjaman buku
+                            Berhasil menghapus data peminjaman buku
                         </div>
                     <?php endif; ?>    
                     <table id="table-to-print">
@@ -133,7 +138,7 @@ unset($_SESSION['notifikasiBerhasil']);
                                     <td data-label="Tanggal Peminjaman"><?= $row['Penerbit'] ?></td>
                                     <td data-label="Tanggal Pengembalian"><?= $row['TahunTerbit'] ?></td>
                                     <td data-label="Tanggal Pengembalian"><?= $row['NamaKategori'] ?></td>
-                                    <td data-label="Aksi"><a class="me-1" href="list-buku-admin.php?hapus=<?= $row['BukuID'] ?>"><i class="fa-solid fa-trash" style="color:red;"></i></a> <a class="me-1" href="list-buku-admin.php?hapus=<?= $row['BukuID'] ?>"><i class="fa-solid fa-edit" style="color:green;"></i></a> <a class="me-1" href="list-buku-admin.php?hapus=<?= $row['BukuID'] ?>"><i class="fa-solid fa-eye" style="color:blue;"></i></a></td>
+                                    <td data-label="Aksi"><a class="me-1" href="list-buku-admin.php?hapus=<?= $row['BukuID'] ?>"><i class="fa-solid fa-trash" style="color:red;"></i></a> <a class="me-1" href="tambah-buku-edit.php?id=<?= $row['BukuID'] ?>"><i class="fa-solid fa-edit" style="color:green;"></i></a> <a class="me-1" href="list-buku-admin.php?hapus=<?= $row['BukuID'] ?>"><i class="fa-solid fa-eye" style="color:blue;"></i></a></td>
                                 </tr>
                                 <?php $i += 1; ?>
                             <?php endforeach; ?>
