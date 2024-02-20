@@ -11,10 +11,10 @@ body{
 }
 .bungkus-link a{
     text-decoration: none;
-    color: #A0A0A0;
+    color: white;
     display: flex;
     justify-content: space-evenly;
-    font-weight: 600;
+    font-weight: 500;
 }
 .bungkus-link{
     margin-top: 2rem;
@@ -25,17 +25,13 @@ body{
 .bungkus-link img{
     margin-left: 2rem;
     margin-right: 1rem;
+    width: 25px;
 }
-.aktif{
-    background-color: #0098DA;
-    padding: 0.5rem 0;
-}
-.aktif a{
-    color: white;
-}
+
 .bungkus-link-kanan{
     display: flex;
     margin-top: 2rem;
+    width: 100%;
     
 }
 .bungkus-link-kanan a{
@@ -44,6 +40,8 @@ body{
    font-weight: 600;
    color: black;
    padding: 0.2rem 1rem;
+font-size: 13px;
+
 }
 a.aktif{
     color: white;
@@ -60,6 +58,13 @@ a.aktif{
     overflow-y: scroll;
     height: 620px;
 }
+
+img.logo2{
+    display: none;
+}
+.navbar{
+    display: none;
+}
 /* Tablet */
 @media only screen and (max-width: 1024px) {
 a.link{
@@ -73,4 +78,55 @@ a.link{
     overflow-y: scroll;
     height: 1100px;
 }
+img.logo2{
+    display: block;
+    width: 40px;
+    margin-left: 5px;
 }
+img.logo1{
+    display: none;
+}
+.responsif-hp{
+    display: none;
+      }
+      .navbar{
+        display: block;
+    }
+    .bungkus-link-kanan{
+        display: flex;
+        margin-top: 2rem;
+        width: 778px;
+        overflow-y: scroll;
+        
+    }
+
+}
+/* Ponsel */
+@media only screen and (max-width: 768px) {
+    /* Masukkan gaya CSS khusus untuk ponsel di sini */
+    .responsif-hp{
+  display: none;
+    }
+    .navbar{
+        display: block;
+    }
+    .bungkus-link-kanan{
+        display: flex;
+        margin-top: 2rem;
+        width: 378px;
+        overflow-y: scroll;
+        
+    }
+    .bungkus-link-kanan a{
+        margin-right: 2rem;
+       
+    
+    }
+    a.aktif{
+        color: white;
+        background-color: #0098DA;
+        border-radius: 20px;
+    }
+    
+}
+
