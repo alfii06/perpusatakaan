@@ -1,0 +1,36 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.kartu-kanan-ulasan{
+    width: 100%;
+    height: auto;
+    padding-bottom: 1rem;
+    border-radius: 20px;
+    background-color: white;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 1rem 2rem;
+}
+.input-ulasan input{
+    border: none;
+    background-color: transparent;
+    outline: none;
+}
+.input-ulasan{
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    margin-top: 1rem;
+}
+textarea{
+    resize: none;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    border-radius: 20px;
+}
+.tombol button{
+    background-color: #424787;
+    padding: 0.5rem 2rem;
+    border-radius: 30px;
+    border: none;
+    color: white;
+}
