@@ -19,8 +19,8 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="../style/list.css" />
-    <link rel="stylesheet" href="../style/profil.css">
-    <link rel="stylesheet" href="../style/tambah_gambar.css">
+    <link rel="stylesheet" href="../style/profil.css" />
+    <link rel="stylesheet" href="../style/tambah_gambar.css" />
     <title>List buku</title>
   </head>
   <body>
@@ -61,7 +61,7 @@
             <a href="" class="link">Koleksi pribadi</a>
           </div>
         </div>
-        <div class="col-lg-10 col-md-11 ">
+        <div class="col-lg-10 col-md-11">
           <nav
             class="navbar navbar-expand-lg navbar-light pt-4"
             style="background-color: #424787"
@@ -125,80 +125,134 @@
             </div>
           </nav>
           <!-- end nav -->
-         <div class="section-kanan-profil">
-<div class="bg-kanan-profil">
-    
-</div>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-8 offset-lg-2">
-            <div class="kartu-kanan-profil"  style="height:540px; overflow-y:scroll;">
-              <div class="judul-profil text-center">
-
-                <p style="color: white;background-color: #424787;font-weight: 600;border-radius: 30px;padding: 0.5rem 1rem;">Tambah Buku</p>
+          <div class="section-kanan-profil">
+            <div class="bg-kanan-profil"></div>
+            <div class="container">
+              <div class="row">
+                <div class="col-lg-8 offset-lg-2">
+                  <div
+                    class="kartu-kanan-profil"
+                    style="height: 540px; overflow-y: scroll"
+                  >
+                    <div class="judul-profil text-center">
+                      <p
+                        style="
+                          color: white;
+                          background-color: #424787;
+                          font-weight: 600;
+                          border-radius: 30px;
+                          padding: 0.5rem 1rem;
+                        "
+                      >
+                        Tambah Buku
+                      </p>
+                    </div>
+                    <div class="row mt-5">
+                      <div class="col-lg-5">
+                        <div class="kartu-upload">
+                          <img
+                            style="margin: auto; display: flex"
+                            src="../assets/icon-up.png"
+                            alt=""
+                          />
+                          <input type="file" />
+                        </div>
+                      </div>
+                      <div class="col-lg-7">
+                        <div class="bungkus-input">
+                          <p style="font-weight: 700; font-size: 1.2rem">
+                            Judul Buku
+                          </p>
+                          <div
+                            class="kanan-input"
+                            style="
+                              padding: 0.5rem 1rem;
+                              background-color: white;
+                              border-radius: 30px;
+                            "
+                          >
+                            <input type="text" />
+                          </div>
+                        </div>
+                        <div class="bungkus-input">
+                          <p
+                            style="font-weight: 700; font-size: 1.2rem"
+                            class="mt-3"
+                          >
+                            Penulis
+                          </p>
+                          <div
+                            class="kanan-input"
+                            style="
+                              padding: 0.5rem 1rem;
+                              background-color: white;
+                              border-radius: 30px;
+                            "
+                          >
+                            <input type="text" />
+                          </div>
+                        </div>
+                        <div class="bungkus-input">
+                          <p
+                            style="font-weight: 700; font-size: 1.2rem"
+                            class="mt-3"
+                          >
+                            Penerbit
+                          </p>
+                          <div
+                            class="kanan-input"
+                            style="
+                              padding: 0.5rem 1rem;
+                              background-color: white;
+                              border-radius: 30px;
+                            "
+                          >
+                            <input type="text" />
+                          </div>
+                        </div>
+                        <div class="bungkus-input">
+                          <p
+                            style="font-weight: 700; font-size: 1.2rem"
+                            class="mt-3"
+                          >
+                            Tahun Terbit
+                          </p>
+                          <div
+                            class="kanan-input"
+                            style="
+                              padding: 0.5rem 1rem;
+                              background-color: white;
+                              border-radius: 30px;
+                            "
+                          >
+                            <input type="number" />
+                          </div>
+                        </div>
+                        <div class="bungkus-input mt-4">
+                          <p style="font-weight: 700; font-size: 1.2rem">
+                            Kategori Buku
+                          </p>
+                          <div class="bungkus-pilih d-flex" style="gap: 1rem">
+                            <div class="pilih">
+                              <p class="mt-3">Pendidikan</p>
+                              <input type="checkbox" />
+                            </div>
+                            <div class="pilih">
+                              <p class="mt-3">Manga</p>
+                              <input type="checkbox" />
+                            </div>
+                            <div class="pilih">
+                              <p class="mt-3">Novel</p>
+                              <input type="checkbox" />
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
-         <div class="row mt-5">
-            <div class="col-lg-5">
-<div class="kartu-upload">
-    <img style="margin: auto;display: flex;" src="../assets/icon-up.png" alt="">
-    <input type="file">
-</div>
             </div>
-            <div class="col-lg-7">
-<div class="bungkus-input">
-    <p style="font-weight: 700;font-size: 1.2rem;">Judul Buku</p>
-    <div class="kanan-input" style="padding: 0.5rem 1rem;background-color: white;border-radius: 30px;">
-        <input type="text">
-    </div>
-    
-</div>
-<div class="bungkus-input">
-    <p style="font-weight: 700;font-size: 1.2rem;" class="mt-3">Penulis</p>
-    <div class="kanan-input" style="padding: 0.5rem 1rem;background-color: white;border-radius: 30px;">
-        <input type="text">
-    </div>
-    
-</div>
-<div class="bungkus-input">
-    <p style="font-weight: 700;font-size: 1.2rem;" class="mt-3">Penerbit</p>
-    <div class="kanan-input" style="padding: 0.5rem 1rem;background-color: white;border-radius: 30px;">
-        <input type="text">
-    </div>
-    
-</div>
-<div class="bungkus-input">
-    <p style="font-weight: 700;font-size: 1.2rem;" class="mt-3">Tahun Terbit</p>
-    <div class="kanan-input" style="padding: 0.5rem 1rem;background-color: white;border-radius: 30px;">
-        <input type="number">
-    </div>
-    
-</div>
-  <div class="bungkus-input mt-4">
-    
-      <p style="font-weight: 700;font-size: 1.2rem;">Kategori Buku</p>
-      <div class="bungkus-pilih d-flex" style="gap: 1rem;">
-
-          <div class="pilih">
-              <p class="mt-3">Pendidikan</p>
-              <input type="checkbox">
-          </div>
-          <div class="pilih">
-              <p class="mt-3">Manga</p>
-              <input type="checkbox">
-          </div>
-          <div class="pilih">
-              <p class="mt-3">Novel</p>
-              <input type="checkbox">
-          </div>
-      </div>
-  </div>
-            </div>
-         </div>
-            </div>
-        </div>
-    </div>
-</div>
-         </div>
           </div>
         </div>
       </div>
