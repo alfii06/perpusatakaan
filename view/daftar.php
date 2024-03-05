@@ -52,7 +52,7 @@ unset($_SESSION['notifikasiBerhasil']);
         <div
           class="col-lg-6"
           style="background-color: #424787; height: auto; padding-bottom: 5rem"
-        >
+        > 
           <div class="logo">
             <img
               src="../assets/logo-1.png
@@ -60,7 +60,7 @@ unset($_SESSION['notifikasiBerhasil']);
               alt=""
             />
             <h1 class="welcome" style="color: white; font-weight: 700">
-              Selamat Datang di perpustakaan Ayo Membaca
+              Selamat Datang di perpustakaan
             </h1>
             <img class="gambar-kiri" src="../assets/gambar-kiri.png" alt="" />
           </div>

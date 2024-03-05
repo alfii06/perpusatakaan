@@ -51,6 +51,21 @@ class Database
         }
     }
 
+    public function listPeminjamanUser() {
+        $idUser = intval($_SESSION['id']);
+        $sql = "SELECT * FROM peminjaman p, user u, buku b where p.UserID = u.userID and p.BukuID = b.BukuID and p.UserID = '$idUser' and p.StatusPeminjaman = 'Dipinjam'";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0) {
+            $users = array();
+            while ($row = $result->fetch_assoc()) {
+                $users[] = $row;
+            }
+            return $users;
+        } else {
+            return [];
+        }
+    }
+
     public function listBookUser() {
         $sql = "SELECT * FROM buku";
         $result = $this->conn->query($sql);
@@ -116,6 +131,8 @@ class Database
         if ($result->num_rows > 0) {
             $data = $result->fetch_assoc();
             unlink($data['gambar']);
+            $sql = "DELETE FROM koleksipribadi where BukuID = '$id'"; 
+            $result = $this->conn->query($sql);
             $sql = "DELETE FROM peminjaman where BukuID = '$id'"; 
             $result = $this->conn->query($sql);
             $sql = "DELETE FROM kategoribuku_relasi where BukuID = '$id'"; 
@@ -175,7 +192,7 @@ class Database
         $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
     
         // Array ekstensi yang diizinkan
-        $allowed_extensions = array('jpg', 'jpeg', 'png');
+        $allowed_extensions = array('jpg', 'jpeg', 'png', 'jfif');
     
         // Cek apakah ekstensi file diizinkan
         if(in_array($file_extension, $allowed_extensions)) {
@@ -228,7 +245,7 @@ class Database
         $file_extension = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
     
         // Array ekstensi yang diizinkan
-        $allowed_extensions = array('jpg', 'jpeg', 'png');
+        $allowed_extensions = array('jpg', 'jpeg', 'png', 'jfif');
     
         // Cek apakah ekstensi file diizinkan
         if(in_array($file_extension, $allowed_extensions)) {
@@ -244,6 +261,8 @@ class Database
             if(move_uploaded_file($file_tmp, $file_destination)) {
                 $sql = "UPDATE buku set judul = '$judul', penulis = '$penulis', penerbit = '$penerbit', TahunTerbit = '$tahun', gambar = '$file_destination' where BukuID = '$idBuku'";
                 $result = $this->conn->query($sql);
+                $sql = "UPDATE kategoribuku_relasi set KategoriID = '$kategori' where BukuID = '$idBuku'";
+                $result = $this->conn->query($sql);
                 return 'berhasil';
             } 
         } else {
@@ -252,9 +271,19 @@ class Database
     } else {
             $sql = "UPDATE buku set judul = '$judul', penulis = '$penulis', penerbit = '$penerbit', TahunTerbit = '$tahun' where BukuID = '$idBuku'";
             $result = $this->conn->query($sql);
+            $sql = "UPDATE kategoribuku_relasi set KategoriID = '$kategori' where BukuID = '$idBuku'";
+            $result = $this->conn->query($sql);
             return 'berhasil';
     }
 }
+
+
+    public function imageBook($id) {
+        $sql = "SELECT gambar from buku where BukuID = '$id'";
+        $result = $this->conn->query($sql);
+        $data = $result->fetch_assoc();
+        return $data['gambar'];
+    }
 
     public function getBook($id) {
         $sql = "SELECT * FROM buku b, kategoribuku kb, kategoribuku_relasi kbr where b.BukuID = kbr.BukuID and kbr.KategoriID = kb.KategoriID and b.BukuID = '$id'";
@@ -292,7 +321,7 @@ class Database
     }
 
     public function checkBook($idUser,$idBuku) {
-        $sql = "SELECT * from peminjaman where UserID = '$idUser' and BukuID = '$idBuku' and StatusPeminjaman = 'Dipinjam'";
+        $sql = "SELECT * from peminjaman where BukuID = '$idBuku' and StatusPeminjaman = 'Dipinjam'";
         $result = $this->conn->query($sql);
         if ($result->num_rows > 0) {
             return 'true';
@@ -330,6 +359,59 @@ class Database
         $idUser = $data['idUser'];
         $idBuku = $data['idBuku'];
         $sql = "INSERT INTO koleksipribadi (UserID, BukuID) values ('$idUser','$idBuku')";
+        $result = $this->conn->query($sql);
+        if($result) {
+            return 'berhasil';
+        } else {
+            return 'gagal';
+
+        }
+    }
+
+    public function addComment($data) {
+        $idUser = intval($_SESSION['id']);
+        $idBuku = intval($data['idBuku']);
+        $rating = $data['rating'];
+        $ulasan = $data['ulasan'];
+
+        $sql = "INSERT INTO ulasanbuku (UserID, BukuID, rating, ulasan) values ('$idUser','$idBuku','$rating','$ulasan')";
+        $result = $this->conn->query($sql);
+        if($result) {
+            return 'berhasil';
+        } else {
+            return 'gagal';
+
+        }
+    }
+    
+    public function listCollection($id) {
+        $sql = "SELECT * FROM koleksipribadi kb, buku b where kb.BukuID = b.BukuID and kb.UserID = '$id'";
+        $result = $this->conn->query($sql);
+        if ($result->num_rows > 0) {
+            $users = array();
+            while ($row = $result->fetch_assoc()) {
+                $users[] = $row;
+            }
+            return $users;
+        } else {
+            return [];
+        }
+    }
+
+    public function hapusKoleksi($id) {
+        $sql = "DELETE FROM koleksipribadi where KoleksiID = '$id'";
+        $result = $this->conn->query($sql);
+        if($result) {
+            return 'berhasil';
+        } else {
+            return 'gagal';
+
+        }
+    }
+
+    public function kembalikanPeminjaman($id) {
+        $idUser = intval($_SESSION['id']);
+        $sql = "UPDATE peminjaman set StatusPeminjaman = 'Dikembalikan' where PeminjamanID = '$id' and UserID = '$idUser'";
         $result = $this->conn->query($sql);
         if($result) {
             return 'berhasil';

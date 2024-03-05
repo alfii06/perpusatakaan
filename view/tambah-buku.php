@@ -5,12 +5,12 @@ require_once '../php/buku.php';
 
 $database = new Database();
 
-if(!isset($_SESSION['id'])) {
+if(!isset($_SESSION['id']) || $_SESSION['user'] === 'user') {
     header("Location: login.php");
     exit;
 } else {
 
-  if(isset($_POST['tambah'])) {
+  if(isset($_POST['tambah']) ) {
     $tambahBuku = $database->addBook($_POST);
     if($tambahBuku === 'berhasil') {
       $_SESSION['notifikasiBerhasil'] = 'berhasil'; 
@@ -68,28 +68,43 @@ unset($_SESSION['notifikasiBerhasil']);
           />
           <div class="bungkus-link">
             <img src="../assets/icon-user.png" width="25" alt="" />
-            <a href="" class="link">Profil anda</a>
+            <a href="profil.php" class="link">Profil anda</a>
           </div>
           <div class="bungkus-link">
             <img src="../assets/icon-list.png" alt="" />
-            <a href="" class="link">List Buku</a>
+            <a href="list-buku.php" class="link">List Buku</a>
           </div>
+          
+          <?php if($_SESSION['user'] === 'admin' || $_SESSION['user'] === 'petugas') :?>
           <div class="bungkus-link">
             <img src="../assets/icon-pinjam.png" alt="" />
-            <a href="" class="link">Data peminjam</a>
+            <a href="data-peminjaman-admin.php" class="link">Peminjaman Buku</a>
           </div>
+          <?php endif; ?>
+          
+          <?php if($_SESSION['user'] === 'user') :?>
           <div class="bungkus-link">
             <img src="../assets/icon-tambah-buku.png" alt="" />
-            <a href="" class="link">Tambah Buku</a>
+            <a href="data-peminjaman-user.php" class="link">Peminjaman Saya</a>
           </div>
+          <?php endif; ?>
+
+          <?php if($_SESSION['user'] === 'user') :?>
           <div class="bungkus-link">
             <img src="../assets/icon-tambah-peminjam.png" alt="" />
-            <a href="" class="link">Tambah peminjam</a>
+            <a href="koleksi.php" class="link">Koleksi Saya</a>
           </div>
+          <?php endif;?>
+
+          
+          <?php if($_SESSION['user'] === 'admin' || $_SESSION['user'] === 'petugas') :?>
           <div class="bungkus-link">
             <img src="../assets/icon-koleksi.png" alt="" />
-            <a href="" class="link">Koleksi pribadi</a>
+            <a href="list-buku-admin.php" class="link">Tambah Buku</a>
           </div>
+          
+          <?php endif; ?>
+         
         </div>
         <div class="col-lg-10 col-md-11">
           <nav
@@ -119,36 +134,35 @@ unset($_SESSION['notifikasiBerhasil']);
               >
                 <div style="margin-right: 25%">
                   <ul class="navbar-nav">
-                    <li class="nav-item">
-                      <a
-                        class="nav-link menu me-4"
-                        style="color: white"
-                        aria-current="page"
-                        href="#"
-                        >List Buku</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a
-                        class="nav-link menu me-4"
-                        style="color: white"
-                        href="#"
-                        >Peminjam</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a
-                        class="nav-link menu me-4"
-                        style="color: white"
-                        href="#"
-                        >Tambah Buku</a
-                      >
-                    </li>
-                    <li class="nav-item">
-                      <a class="nav-link menu" style="color: white" href="#"
-                        >Koleksi Pribadi</a
-                      >
-                    </li>
+                  <li class="nav-item">
+                                        <a class="nav-link menu me-4" style="color: white" aria-current="page" href="profil.php">Profil</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu me-4" style="color: white" aria-current="page" href="list-buku.php">List Buku</a>
+                                    </li>
+                                    <?php if($_SESSION['user'] === 'admin' || $_SESSION['user'] === 'petugas') :?>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu me-4" style="color: white" href="data-peminjaman-admin.php">Daftar Peminjaman Buku</a>
+                                    </li>
+                                    <?php endif;?>
+                                    
+                                    <?php if($_SESSION['user'] === 'user') :?>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu me-4" style="color: white" href="data-peminjaman-user.php">Peminjaman Saya</a>
+                                    </li>
+                                    <?php endif;?>
+                                    
+                                    <?php if($_SESSION['user'] === 'user') :?>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu me-4" style="color: white" href="koleksi.php">Koleksi Saya</a>
+                                    </li>
+                                    <?php endif;?>
+                                    
+                                    <?php if($_SESSION['user'] === 'admin' || $_SESSION['user'] === 'petugas') :?>
+                                    <li class="nav-item">
+                                        <a class="nav-link menu me-4" style="color: white" href="list-buku-admin.php">Tambah Buku</a>
+                                    </li>
+                                    <?php endif; ?>
                   </ul>
                 </div>
               </div>

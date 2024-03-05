@@ -75,19 +75,28 @@ class Database
         
         if($username === 'petugas' && $password === '12345678') {
             $_SESSION['id'] = $data['userID'];
-            $_SESSION['petugas'] = 'true';
+            $_SESSION['user'] = 'petugas';
             return 'petugas';
         }
         if($username === 'admin' && $password === '12345678') {
             $_SESSION['id'] = $data['userID'];
-            $_SESSION['admin'] = 'true';
+            $_SESSION['user'] = 'admin';
             return 'admin';
         }
         if($result->num_rows > 0) {
             $_SESSION['id'] = $data['userID'];
+            $_SESSION['user'] = 'user';
             return 'berhasil'; 
         }
         return 'gagal'; 
 
+    }
+
+    public function profile() {
+        $idUser = $_SESSION['id'];
+        $sql = "SELECT * from user where userID = '$idUser'";
+        $result = $this->conn->query($sql);
+        $data = $result->fetch_assoc();
+        return $data;
     }
 }

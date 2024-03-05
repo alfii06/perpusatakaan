@@ -6,6 +6,11 @@ require_once '../php/database.php';
 // Contoh penggunaan:
 $database = new Database();
 
+if(isset($_SESSION['id'])) {
+  header("Location: profil.php");
+  exit;
+}
+
 if(isset($_POST['masuk'])) {
   $users = $database->login($_POST);
   if($users === 'berhasil') {
@@ -68,7 +73,7 @@ unset($_SESSION['notifikasiBerhasil']);
               alt=""
             />
             <h1 style="color: white; font-weight: 700">
-              Selamat Datang di perpustakaan Ayo Membaca
+              Selamat Datang di perpustakaan 
             </h1>
             <img class="gambar-kiri" src="../assets/gambar-kiri.png" alt="" />
           </div>

@@ -5,24 +5,25 @@ require_once '../php/buku.php';
 
 $database = new Database();
 
-if(!isset($_SESSION['id']) || $_SESSION['user'] === 'user') {
+if(!isset($_SESSION['id']) || $_SESSION['user'] === 'admin' || $_SESSION['user'] === 'petugas') {
     header("Location: login.php");
     exit;
 } else {
-    $listbuku = $database->listBook();
-    $data = $listbuku;
+    $listpeminjaman = $database->listPeminjamanUser();
+    $data = $listpeminjaman;
 
-    if(isset($_GET['hapus'])) {
-        $hapusPeminjaman = $database->hapusPeminjaman(intval($_GET['hapus']));
-        if($hapusPeminjaman === 'berhasil') {
-            $_SESSION['notifikasiBerhasil'] = 'berhasil'; 
-        } else if($hapusPeminjaman === 'gagal') {
-            $_SESSION['notifikasiBerhasil'] = 'gagal'; 
-        }
+    if(isset($_GET['kembalikan'])) {
+      $kembalikanPeminjaman = $database->kembalikanPeminjaman(intval($_GET['kembalikan']));
+      if($kembalikanPeminjaman === 'berhasil') {
+        $_SESSION['notifikasiBerhasil'] = 'berhasil'; 
+      } else if($kembalikanPeminjaman === 'gagal') {
+        $_SESSION['notifikasiBerhasil'] = 'gagal'; 
+      }
       
-        header("Location: data-peminjaman-admin.php");
+        header("Location: data-peminjaman-user.php");
         exit;
     }
+
 }
 
 $notifikasiBerhasil = isset($_SESSION['notifikasiBerhasil']) ? $_SESSION['notifikasiBerhasil'] : null;
@@ -38,8 +39,20 @@ unset($_SESSION['notifikasiBerhasil']);
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous" />
     <link rel="stylesheet" href="../style/list.css" />
-    <title>List buku</title>
+    <title>Peminjaman Saya</title>
 </head>
+<style>
+    .kembalikan {
+        text-decoration : none;
+        padding : 5px 15px;
+        background-color: green;
+        color : white;
+    }
+    .kembalikan:hover {
+        color : white;
+
+    }
+</style>
 <body>
     <div class="section-list">
         <div class="row">
@@ -95,7 +108,7 @@ unset($_SESSION['notifikasiBerhasil']);
                         <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                             <div style="margin-right: 25%">
                                 <ul class="navbar-nav">
-                                    <li class="nav-item">
+                                <li class="nav-item">
                                         <a class="nav-link menu me-4" style="color: white" aria-current="page" href="profil.php">Profil</a>
                                     </li>
                                     <li class="nav-item">
@@ -131,28 +144,26 @@ unset($_SESSION['notifikasiBerhasil']);
                 </nav>
                 <!-- end nav -->
                 <div class="container">
-                    <div class="judul text-center mt-5 mb-5"><h3>Daftar Peminjaman Buku Seluruh Pengguna</h3></div>
-                    <button style="border:none; margin-bottom:20px; padding : 7px 20px; border-radius: 10px;" id="print-button" onclick="printPDF()">Print PDF</button>
+                    <div class="judul text-center mt-5 mb-5"><h3>Daftar Peminjaman Buku Saya</h3></div>
 
 
                     <?php if(isset($notifikasiBerhasil) && $notifikasiBerhasil === 'gagal') : ?>
                         <div class="alert alert-danger" role="alert">
-                            Gagal menghapus data peminjaman buku
+                            Gagal mengembalikan buku
                         </div>
                     <?php elseif(isset($notifikasiBerhasil) && $notifikasiBerhasil === 'berhasil'): ?>
                         <div class="alert alert-success" role="alert">
-                            Berhasil menghapus data peminjaman buku
+                            Berhasil mengembalikan buku
                         </div>
                     <?php endif; ?>    
                     <table id="table-to-print">
                         <thead>
                             <tr>
                                 <th scope="col">Nomor</th>
-                                <th scope="col">Peminjam</th>
                                 <th scope="col">Judul</th>
+                                <th scope="col">Penulis</th>
                                 <th scope="col">Tanggal Peminjaman</th>
                                 <th scope="col">Tanggal Pengembalian</th>
-                                <th scope="col">Status Peminjaman</th>
                                 <th scope="col">Aksi</th>
                             </tr>
                         </thead>
@@ -161,20 +172,11 @@ unset($_SESSION['notifikasiBerhasil']);
                             <?php foreach($data as $row): ?>
                                 <tr>
                                     <td data-label="Peminjaman ID"><?= $i?></td>
-                                    <td data-label="User ID"><?= $row['Username'] ?></td>
-                                    <td data-label="Buku ID"><?= $row['Judul'] ?></td>
+                                    <td data-label="User ID"><?= $row['Judul'] ?></td>
+                                    <td data-label="Buku ID"><?= $row['Penulis'] ?></td>
                                     <td data-label="Tanggal Peminjaman"><?= $row['TanggalPeminjaman'] ?></td>
                                     <td data-label="Tanggal Pengembalian"><?= $row['TanggalPengembalian'] ?></td>
-                                    <td data-label="Status Peminjaman"><p style="
-                                    <?php if($row['StatusPeminjaman'] === 'Dipinjam') :?>
-                                    background-color:#00CC39; 
-                                    <?php else :?>
-                                        background-color:yellow; 
-                                        color:black !important; 
-                                    <?php endif;?>
-                                    
-                                    border-radius:40px; color:white; margin-bottom:5px;"><?= $row['StatusPeminjaman'] ?></p></td>
-                                    <td data-label="Aksi"><a href="data-peminjaman-admin.php?hapus=<?= $row['PeminjamanID'] ?>" onclick="return confirmReturn()"><i class="fa-solid fa-trash"></i></a></td>
+                                    <td data-label="Aksi"><a class="kembalikan" href="data-peminjaman-user.php?kembalikan=<?= $row['PeminjamanID'] ?>">Kembalikan</a></td>
                                 </tr>
                                 <?php $i += 1; ?>
                             <?php endforeach; ?>
@@ -185,33 +187,19 @@ unset($_SESSION['notifikasiBerhasil']);
             </div>
         </div>
     </div>
+    <script src="https://unpkg.com/jspdf@latest/dist/jspdf.umd.min.js"></script>
     <script>
-        function confirmReturn() {
-            if (confirm("Apakah Anda yakin ingin mengembalikan buku ini?")) {
-                // Jika pengguna menekan tombol OK, lanjutkan dengan penghapusan
-                return true;
-            } else {
-                // Jika pengguna menekan tombol Cancel, batalkan penghapusan
-                return false;
-            }
-        }
+      function printPDF() {
+        const doc = new jsPDF();
+        const table = document.getElementById('table-to-print');
 
-        function printPDF() {
-            // Create a new window with only the table content
-            const printWindow = window.open('', 'printWindow', 'width=800,height=600');
-            printWindow.document.write(`<!DOCTYPE html><html><head><title>Table to Print</title></head><body>${tableToPrint.outerHTML}</body></html>`);
-            printWindow.document.close();
+        // Optional: Set document dimensions for a good fit
+        doc.addImage(table, 'PNG', 10, 20, 180, 200); // Adjust coordinates and dimensions as needed
 
-            // Trigger the print dialog in the new window
-            printWindow.focus();
-            printWindow.print();
+        doc.save('table.pdf');
+    }
 
-            // Close the new window after printing
-            printWindow.close();
-        }
     </script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 </body>
-
-
 </html>
